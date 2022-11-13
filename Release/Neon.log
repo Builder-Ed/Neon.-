@@ -1,0 +1,31 @@
+﻿  Camera.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+F:\Developing\Neon\Neon\imgui_draw.cpp(328,71): warning C4305: “参数”: 从“double”到“float”截断
+  imgui_impl_glfw.cpp
+  imgui_impl_opengl3.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  LightDirectional.cpp
+  LightPoint.cpp
+  LightSpot.cpp
+  Material.cpp
+  Neon-@~@.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+F:\Developing\Neon\Dependencies\OpenGL\glfw-3.3.8.bin.WIN32\include\GLFW\glfw3.h(123): message : 参见“APIENTRY”的前一个定义
+F:\Developing\Neon\Neon\stb_image_write.h(776,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Developing\Neon\Neon\Neon-@~@.cpp(92,14): warning C4551: 缺少参数列表的函数调用
+F:\Developing\Neon\Neon\Neon-@~@.cpp(200,18): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+F:\Developing\Neon\Neon\Neon-@~@.cpp(201,18): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+F:\Developing\Neon\Neon\Neon-@~@.cpp(203,11): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+F:\Developing\Neon\Neon\Neon-@~@.cpp(204,11): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  Shader.cpp
+  Previous IPDB not found, fall back to full compilation.
+LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+  正在生成代码
+  All 1755 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“F:\Developing\Neon\Release\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  Neon.vcxproj -> F:\Developing\Neon\Release\Neon.exe
