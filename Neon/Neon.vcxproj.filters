@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{5859a306-971a-4aee-ae33-2a3cadb27efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\IMG">
+      <UniqueIdentifier>{646d3041-457d-4dfc-83d9-4ce81acd2d08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Vertex&amp;Fragment.Settings">
+      <UniqueIdentifier>{84ca5ffa-a970-471f-ab14-a1d7caf9b882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceCode">
+      <UniqueIdentifier>{8b7b1016-3769-44b2-90ab-caf0947be9a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Head">
+      <UniqueIdentifier>{329b00e9-41a7-4553-a512-b67d40614aa2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resouces\IMG\container2_specular.png">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+    <Image Include="Resouces\IMG\Glass.jpeg">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+    <Image Include="Resouces\IMG\Metal.jpg">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+    <Image Include="Resouces\IMG\nvidiafaq.png">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+    <Image Include="Resouces\IMG\nvidiafaq1.png">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+    <Image Include="Resouces\IMG\WFloor.jpg">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+    <Image Include="Resouces\IMG\WFloorCTD.jpg">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+    <Image Include="Resouces\IMG\wierdtexture2.png">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+    <Image Include="Resouces\IMG\container2.png">
+      <Filter>Resources\IMG</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vertexSource.vert">
+      <Filter>Resources\Vertex&amp;Fragment.Settings</Filter>
+    </None>
+    <None Include="fragmentSource.frag">
+      <Filter>Resources\Vertex&amp;Fragment.Settings</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Shader.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glfw.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_opengl3.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="LightDirectional.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Neon-%40~%40.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="LightPoint.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSpot.cpp">
+      <Filter>SourceCode</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_glfw.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_opengl3.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_opengl3_loader.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDirectional.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_resize.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_write.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="LightPoint.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSpot.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
