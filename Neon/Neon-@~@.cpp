@@ -377,8 +377,8 @@ int main() {
 #pragma endregion
 #pragma region Init.Material
 		Material* MainMaterial = new Material(MainShader, 
-			LoadImageToGPU("Container2.png",GL_RGB,GL_RGBA,Shader::IMGDiffuse),
-			LoadImageToGPU("Container2_specular.png", GL_RGB, GL_RGBA, Shader::IMGSPECULAR), 
+			LoadImageToGPU("container2.png",GL_RGB,GL_RGBA,Shader::IMGDiffuse),
+			LoadImageToGPU("container2_specular.png", GL_RGB, GL_RGBA, Shader::IMGSPECULAR), 
 			glm::vec3(1.0f, 1.0f, 1.0f), 32.0f);
 #pragma endregion
 		#pragma region Init.Buffers.And.Load.Models-VAO&VBO
