@@ -11,8 +11,9 @@ public:
 	void UpdateDirection();
 	glm::vec3 LSPos;
 	glm::vec3 LSAngles;
+	glm::vec3 LSDirection=glm::vec3(0,0,1.0f);
 	glm::vec3 LSColor;
 
-
+	float CosPhi = 0.9f;
 };
 

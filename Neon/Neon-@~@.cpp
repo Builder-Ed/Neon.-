@@ -12,6 +12,11 @@
 #pragma comment(linker,"/subsystem:\"windows\"/entry:\"mainCRTStartup\"")
 #endif // _MSC_VER_
 
+#include<thread>
+#include <utility>
+#include <chrono>
+#include <functional>
+#include <atomic>
 
 #include"Shader.h"
 #define STB_IMAGE_IMPLEMENTATION
@@ -29,6 +34,7 @@
 #include"LightDirectional.h"
 #include "LightSpot.h"
 float lightx = 0, lighty = 100;
+int WindowWidth,WindowHeight;
 void ShiftLD() {
 	lightx++;
 	lighty++;
@@ -36,28 +42,44 @@ void ShiftLD() {
 
 }
 void Capture() {
-	//struct RGBA {
-	//	char R;
-	//	char G;
-	//	char B;
-	//	char A;
-	//};
+	struct RGBA {
+		char R;
+		char G;
+		char B;
+		char A;
+	};
 	const char* Filepath ="";
-	//RGBA* PixelBuffer = new RGBA[970, 499];
-	//glReadPixels(0, 0, 970, 499, GL_RGBA, GL_UNSIGNED_BYTE,PixelBuffer);
-	//stbi_write_png("./Output/Img/Capture.png", 970, 499, 10, PixelBuffer, 0);
+	RGBA* PixelBuffer = new RGBA[970, 499];
+	glReadPixels(0, 0, 970, 499, GL_RGBA, GL_UNSIGNED_BYTE,PixelBuffer);
+	stbi_write_png("./Output/Img/Capture.png", 970, 499, 10, PixelBuffer, 0);
 }
 
+void CalculateFps() {
+	double lastTime = glfwGetTime();
+	int nbFrames = 0;
 
+
+		// Measure speed
+		double currentTime = glfwGetTime();
+		nbFrames++;
+		if (currentTime - lastTime >= 1.0) { // If last prinf() was more than 1 sec ago
+			// printf and reset timer
+			printf("%f ms/frame\n", 1000.0 / double(nbFrames));
+			printf("%d", nbFrames);
+			nbFrames = 0;
+			lastTime += 1.0;
+	}
+	
+}
 void ImGuiRender() {
 
-	
+
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	{
 		ImGui::Begin("Window",NULL,ImGuiWindowFlags_MenuBar);
-		
+
 		if (ImGui::BeginMenuBar())
 		{
 			ImGui::SetWindowPos(ImVec2(240, 0));
@@ -65,14 +87,14 @@ void ImGuiRender() {
 			if (ImGui::BeginMenu("File"))
 			{
 				if (ImGui::MenuItem("Open..", "Ctrl+O")) {  }
-				if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */ }
-				if (ImGui::MenuItem("Close", "Ctrl+W")) {  }
-				if (ImGui::MenuItem("Refresh", "Ctrl+F")) { }
+				if (ImGui::MenuItem("Save", "Ctrl+S")) { }
+				if (ImGui::MenuItem("Close", "Ctrl+W")) {}
+				if (ImGui::MenuItem("Refresh", "Ctrl+F")) {}
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("Edit"))
 			{
-				if (ImGui::MenuItem("...","..")) {}
+				if (ImGui::MenuItem("...", "..")) {  }
 				ImGui::EndMenu();
 			}
 			ImGui::EndMenuBar();
@@ -81,21 +103,24 @@ void ImGuiRender() {
 
 		ImGui::End();
 	}
-		ImGui::Begin("SideBar", NULL, ImGuiWindowFlags_MenuBar);{
+	ImGui::Begin("SideBar", NULL, ImGuiWindowFlags_MenuBar); {
 
 		if (ImGui::BeginMenuBar())
 		{
 			ImGui::SetWindowPos(ImVec2(0, 0));
-			ImGui::SetWindowSize(ImVec2(240, 499));
+			ImGui::SetWindowSize(ImVec2(240, 10));
 			
+
 		}
-		if (ImGui::BeginTable) {
-			if (ImGui::Button("ScreenShot", ImVec2(100, 40))) { Capture(); }
-		}
+		
+		if (ImGui::Button("ScreenShot", ImVec2(100, 29))) {}
 		ImGui::End();
 	}
 	ImGui::Render();
-}
+} 
+
+
+
 #pragma region Model Data
 GLfloat vertices[] = {
 	/*0.5f,0.5f,0.0f,  1.0f,0.0f,1.0f,    1.0f,1.0f,
@@ -176,8 +201,8 @@ glm::vec3 cubePositions[] = {
 Camera camera(glm::vec3(0, 0, 3.0f), glm::radians(-15.0f), glm::radians(180.0f), glm::vec3(0, 1.0f, 0));
 #pragma endregion
 #pragma region LightDeclare
-LightSpot Light = LightSpot(glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(glm::radians(45.0f), glm::radians(45.0f), 0),glm::vec3(1.0f,1.0f,1.0f));
-
+//LightSpot Light = LightSpot(glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(glm::radians(45.0f), glm::radians(45.0f), 0), glm::vec3(1.0f, 1.0f, 1.0f));
+LightPoint Light = LightPoint(glm::vec3(1.0f, 1.0f, -1.0f),glm::vec3(glm::radians(45.0f),glm::radians(45.0f),0),glm::vec3(2.0f,0,0));
 #pragma endregion
 #pragma region Input Declare
 float lastX;
@@ -210,68 +235,73 @@ void mouse_callback(GLFWwindow* window, double xPos, double yPos) {
 }
 
 void processInput(GLFWwindow* window) {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		glfwSetWindowShouldClose(window, true);
-	}
-	if (/*glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && */ glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+			glfwSetWindowShouldClose(window, true);
+		}
+		if (/*glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && */ glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+			if (mousestate == true) {
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				mousestate = false;
+			}
+			else
+			{
+				//glfwSetCursorPos(window, 970 / 2, 499 / 2);
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CENTER_CURSOR);
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				mousestate = true;
+			}
+
+		}
 		if (mousestate == true) {
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		mousestate = false;
-		}
-		else
-		{
 			glfwSetCursorPos(window, 970 / 2, 499 / 2);
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CENTER_CURSOR);
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			mousestate = true;
+			if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+				camera.speedZ = 1.0f;
+			}
+			else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+				camera.speedZ = -1.0f;
+			}
+			else {
+				camera.speedZ = 0;
+			}
+			if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+				camera.speedX = -1.0f;
+			}
+			else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+				camera.speedX = 1.0f;
+			}
+			else {
+				camera.speedX = 0;
+			}
+
+			if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+				camera.speedY = 1.0f;
+			}
+			else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+				camera.speedY = -1.0f;
+			}
+			else {
+				camera.speedY = 0;
+			}
+
+
+
+
+			if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+				camera.speedZ = -1.65f;
+			}
+			else if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+				camera.speedZ = 1.65f;
+			}
+
+			if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+				camera.speedX = -1.25f;
+			}
+			else if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+				camera.speedX = 1.25f;
+			}
+
 		}
-		
-	}
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-		camera.speedZ = 1.0f;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		camera.speedZ = -1.0f;
-	}
-	else {
-		camera.speedZ = 0;
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-		camera.speedX = -1.0f;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-		camera.speedX=1.0f;
-	}
-	else {
-		camera.speedX = 0;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-		camera.speedY = 1.0f;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-		camera.speedY = -1.0f;
-	}
-	else {
-		camera.speedY = 0;
-	}
-
-
-
-
-	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS&&glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		camera.speedZ = -1.65f;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS&&glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
-		camera.speedZ = 1.65f;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-		camera.speedX = -1.25f;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-		camera.speedX = 1.25f;
-	}
 
 
 
@@ -279,13 +309,15 @@ void processInput(GLFWwindow* window) {
 
 
 
-	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+		if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
 	}
-	else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-}
+	
 #pragma endregion
 #pragma region Loading.Images
 unsigned int LoadImageToGPU(const char* Filename,GLint internalFormat,GLenum Format,int textureSlot) {
@@ -365,7 +397,7 @@ int main() {
 
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	//void framebuffer_size_callback(GLFWwindow * window,int width, int height){
-		glViewport(0, 0,970,499);
+		glViewport(0, 0,970, 499);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK);
@@ -451,19 +483,22 @@ int main() {
 		//trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
 #pragma endregion
 		glCullFace(GL_BACK);
+		//ProcessInput
+		//std::thread t1(processInput,window);
+		//t1.join();
 		while (!glfwWindowShouldClose(window))
 		{
-			//ShiftLD();
-			
+			ShiftLD();
+			processInput(window);
 			ImGuiRender();
-			
+			glfwGetWindowSize(window, &WindowWidth, &WindowHeight);
+			glViewport(0, 0, WindowWidth, WindowHeight);
 			// LightDirectional Light = LightDirectional(glm::vec3(10.0f, 10.0f, -5.0f), glm::vec3(glm::radians(lightx), glm::radians(lighty), 0));
 			//trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0, 0, 1.0f));
 			//trans = glm::rotate(trans, glm::radians(0.1f), glm::vec3(0, 0, 0.001f));
 			//trans = glm::translate(trans, glm::vec3(-0.001f, 0, 0));
 			
-			//ProcessInput
-			processInput(window);
+			
 
 			//ClearScreen
 			//glClearColor(0.2f,0.2f,0.2f,1.0f);
@@ -504,21 +539,25 @@ int main() {
 				glUniformMatrix4fv(glGetUniformLocation(MainShader->ID, "modelMat"), 1, GL_FALSE, glm::value_ptr(modelMat));
 				glUniformMatrix4fv(glGetUniformLocation(MainShader->ID, "viewMat"), 1, GL_FALSE, glm::value_ptr(viewMat));
 				glUniformMatrix4fv(glGetUniformLocation(MainShader->ID, "projMat"), 1, GL_FALSE, glm::value_ptr(projMat));
-				glUniform3f(glGetUniformLocation(MainShader->ID, "objectColor"),1.0f,1.0f,1.0f);
-				glUniform3f(glGetUniformLocation(MainShader->ID, "ambientColor"), 0.2f, 0.2f, 0.2f);
-				glUniform3f(glGetUniformLocation(MainShader->ID, "lightPos"),Light.LSPos.x, Light.LSPos.y, Light.LSPos.z);
-				glUniform3f(glGetUniformLocation(MainShader->ID, "lightColor"), Light.LSColor.x, Light.LSColor.y, Light.LSColor.z);
-				//glUniform3f(glGetUniformLocation(MainShader->ID, "lightDirUniform"),Light.LPDirection.x, Light.LPDirection.y, Light.LPDirection.z);
+				glUniform3f(glGetUniformLocation(MainShader->ID, "objectColor"),0.9f,0.9f,0.9f);
+				glUniform3f(glGetUniformLocation(MainShader->ID, "ambientColor"), 0.4f, 0.4f, 0.4f);
+				glUniform3f(glGetUniformLocation(MainShader->ID, "lightPos"),Light.LPPos.x, Light.LPPos.y, Light.LPPos.z);
+				glUniform3f(glGetUniformLocation(MainShader->ID, "lightColor"), Light.LPColor.x, Light.LPColor.y, Light.LPColor.z);
+				//glUniform3f(glGetUniformLocation(MainShader->ID, "lightDirUniform"),Light.LightPDirection.x, Light.LPDirection.y, Light.LPDirection.z);
+				glUniform1f(glGetUniformLocation(MainShader->ID, "LightSpt.CosPhi"), Light.CosPhi);
+				
 				glUniform3f(glGetUniformLocation(MainShader->ID, "cameraPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 				//glUniform1f(glGetUniformLocation(MainShader->ID, "lightSpt.CosPhi"), Light.CosPhi);
 				//glUniform1f(glGetUniformLocation(MainShader->ID, "LightPt.constant"), Light.constant);
 				//glUniform1f(glGetUniformLocation(MainShader->ID, "LightPt.linear"), Light.linear);
 				//glUniform1f(glGetUniformLocation(MainShader->ID, "LightPt.quadratic"), Light.quadratic);
-
+				
 
 				//glUniform3f(glGetUniformLocation(MainShader->ID, "material.ambient"));
 				//MainMaterial->shader->SetUniform3f("material.diffuse", MainMaterial->diffuse);
+				//MainMaterial->shader->SetUniform3f("material.specular", MainMaterial->specular);
 				MainMaterial->shader->SetUniform3f("material.ambient", MainMaterial->ambient);
+				MainMaterial->shader->SetUniform1f("material.shininess", MainMaterial->shininess);
 				MainMaterial->shader->SetUniform1i("material.diffuse", Shader::IMGDiffuse);
 				MainMaterial->shader->SetUniform1i("material.specular", Shader::IMGSPECULAR);
 				MainMaterial->shader->SetUniform1f("material.shininess", MainMaterial->shininess);
@@ -534,7 +573,7 @@ int main() {
 				glBindVertexArray(VAO);
 				//DrawCall
 				glDrawArrays(GL_TRIANGLES, 0, 36);
-
+				CalculateFps();
 				//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 				//glDrawArrays(GL_TRIANGLES,0,6);
 				
