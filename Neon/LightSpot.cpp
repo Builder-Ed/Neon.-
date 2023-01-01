@@ -1,20 +1,3 @@
-#include "LightSpot.h"
-
-LightSpot::LightSpot(glm::vec3 _LSPos, glm::vec3 _LSAngles, glm::vec3 _LSColor) :
-	LSPos(_LSPos),
-	LSAngles(_LSAngles),
-	LSColor(_LSColor)
-{
-	UpdateDirection();
-}
-
-void LightSpot::UpdateDirection()
-{
-	glm::vec3 LSPos;
-	glm::vec3 LSAngles;
-	glm::vec3 LSColor;
-	glm::vec3 LSDirection = glm::vec3(0, 0, 1.0f);
-
-	
-}
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:b2cc2c663a5dfd8d790f65d8714ab38c2520f8e862c0c2b9e8116f0f747dcc8e
+size 380

@@ -1,25 +1,3 @@
-f:\developing\neon\neon\release\vc143.pdb
-f:\developing\neon\neon\release\shader.obj
-f:\developing\neon\neon\release\neon-@~@.obj
-f:\developing\neon\neon\release\material.obj
-f:\developing\neon\neon\release\lightspot.obj
-f:\developing\neon\neon\release\lightpoint.obj
-f:\developing\neon\neon\release\lightdirectional.obj
-f:\developing\neon\neon\release\imgui_widgets.obj
-f:\developing\neon\neon\release\imgui_tables.obj
-f:\developing\neon\neon\release\imgui_impl_opengl3.obj
-f:\developing\neon\neon\release\imgui_impl_glfw.obj
-f:\developing\neon\neon\release\imgui_draw.obj
-f:\developing\neon\neon\release\imgui_demo.obj
-f:\developing\neon\neon\release\imgui.obj
-f:\developing\neon\neon\release\camera.obj
-f:\developing\neon\release\neon.exe
-f:\developing\neon\neon\release\neon.ipdb
-f:\developing\neon\neon\release\neon.iobj
-f:\developing\neon\release\neon.pdb
-f:\developing\neon\neon\release\neon.tlog\cl.command.1.tlog
-f:\developing\neon\neon\release\neon.tlog\cl.read.1.tlog
-f:\developing\neon\neon\release\neon.tlog\cl.write.1.tlog
-f:\developing\neon\neon\release\neon.tlog\link.command.1.tlog
-f:\developing\neon\neon\release\neon.tlog\link.read.1.tlog
-f:\developing\neon\neon\release\neon.tlog\link.write.1.tlog
+version https://git-lfs.github.com/spec/v1
+oid sha256:e36380b8672fdd93222a90f47e612e453cca3e812b8f7abc9b0a1cb0a04d935e
+size 1243

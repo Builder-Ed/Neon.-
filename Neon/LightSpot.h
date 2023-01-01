@@ -1,19 +1,3 @@
-#pragma once
-
-#include<glm.hpp>
-#include<gtx/rotate_vector.hpp>
-//#include<gtc/matrix_transform.hpp>
-class LightSpot
-{
-public:
-	LightSpot(glm::vec3 _LSPos, glm::vec3 _LSAngles, glm::vec3 _LSColor = glm::vec3(1.0f, 1.0f, 1.0f));
-
-	void UpdateDirection();
-	glm::vec3 LSPos;
-	glm::vec3 LSAngles;
-	glm::vec3 LSDirection=glm::vec3(0,0,1.0f);
-	glm::vec3 LSColor;
-
-	float CosPhi = 0.9f;
-};
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:7f8e6bd7e7ade9ce21d46bcb325beb95d9a21d1fb4f5e27ec2ffc23413e13f7c
+size 403
