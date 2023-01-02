@@ -1,15 +1,3 @@
-f:\developing\neon\neon\debug\vc143.pdb
-f:\developing\neon\neon\debug\vc143.idb
-f:\developing\neon\neon\debug\shader.obj
-f:\developing\neon\neon\debug\neon-@~@.obj
-f:\developing\neon\neon\debug\camera.obj
-f:\developing\neon\debug\neon.exe
-f:\developing\neon\neon\debug\neon.ilk
-f:\developing\neon\debug\neon.pdb
-f:\developing\neon\neon\debug\source.obj
-f:\developing\neon\neon\debug\neon.tlog\cl.command.1.tlog
-f:\developing\neon\neon\debug\neon.tlog\cl.read.1.tlog
-f:\developing\neon\neon\debug\neon.tlog\cl.write.1.tlog
-f:\developing\neon\neon\debug\neon.tlog\link.command.1.tlog
-f:\developing\neon\neon\debug\neon.tlog\link.read.1.tlog
-f:\developing\neon\neon\debug\neon.tlog\link.write.1.tlog
+version https://git-lfs.github.com/spec/v1
+oid sha256:90783ed7bd112f18731c3e980b5da84cb00c3968b69340dfcf261b5e9ae09630
+size 1371
